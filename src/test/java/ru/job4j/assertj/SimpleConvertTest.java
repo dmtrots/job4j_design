@@ -58,7 +58,7 @@ class SimpleConvertTest {
     @Test
     void checkMap() {
         SimpleConvert simpleConvert = new SimpleConvert();
-        Map<String, Integer> map = simpleConvert.toMap( "first", "second", "third", "fourth", "fifth");
+        Map<String, Integer> map = simpleConvert.toMap("first", "second", "third", "fourth", "fifth");
         assertThat(map)
                 .hasSize(5)
                 .containsKeys("second", "fourth")
