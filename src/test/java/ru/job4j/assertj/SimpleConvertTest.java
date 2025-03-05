@@ -49,7 +49,6 @@ class SimpleConvertTest {
                 .startsWith("third", "fifth")
                 .endsWith("first", "second");
         assertThat(set).isNotNull()
-                /*все элементы выполняют условие*/
                 .allSatisfy(e -> {
                     assertThat(e.length()).isLessThan(10);
                     assertThat(e.length()).isGreaterThan(0);
