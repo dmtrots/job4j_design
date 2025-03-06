@@ -55,4 +55,13 @@ class NameLoadTest {
                 .hasMessageContaining("a value")
                 .hasMessageContaining("key=");
     }
+
+    @Test
+    void checkArrayContainsVariable() {
+        NameLoad nameLoad = new NameLoad();
+        String key = "first key";
+        assertThatThrownBy(() -> nameLoad.parse(key))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(key);
+    }
 }
