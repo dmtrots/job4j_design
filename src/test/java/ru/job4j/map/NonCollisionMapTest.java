@@ -198,7 +198,6 @@ class NonCollisionMapTest {
         assertThat(map.remove(2)).isFalse();
     }
 
-
     @Test
     void whenIterateThenReturnAllKeys() {
         SimpleMap<Integer, String> map = new NonCollisionMap<>();
