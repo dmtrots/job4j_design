@@ -16,11 +16,11 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean result = false;
-        if ((float) count / capacity >= LOAD_FACTOR) {
+        if (count * 1f / capacity >= LOAD_FACTOR) {
             expand();
         }
 
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = index(key);
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             count++;
@@ -33,9 +33,13 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public V get(K key) {
         V result = null;
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = index(key);
         MapEntry<K, V> entry = table[index];
-        if (entry != null && Objects.equals(entry.key, key)) {
+        if (entry != null
+                && (key == null && entry.key == null
+                || key != null && entry.key != null
+                && key.hashCode() == entry.key.hashCode()
+                && Objects.equals(entry.key, key))) {
             result = entry.value;
         }
         return result;
@@ -44,9 +48,13 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = index(key);
         MapEntry<K, V> entry = table[index];
-        if (entry != null && Objects.equals(entry.key, key)) {
+        if (entry != null
+                && (key == null && entry.key == null
+                || key != null && entry.key != null
+                && key.hashCode() == entry.key.hashCode()
+                && Objects.equals(entry.key, key))) {
             table[index] = null;
             count--;
             modCount++;
@@ -88,6 +96,10 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     private int indexFor(int hash) {
         return hash & (capacity - 1);
+    }
+
+    private int index(K key) {
+        return indexFor(hash(Objects.hashCode(key)));
     }
 
     private void expand() {
