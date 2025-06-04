@@ -8,8 +8,6 @@ public class SimpleQueue<T> {
     private int out = 0;
     private int in = 0;
 
-    /* добавьте переменные, если они требуются */
-
     public T poll() {
         if (isEmpty()) {
             throw new NoSuchElementException("Queue is empty");
