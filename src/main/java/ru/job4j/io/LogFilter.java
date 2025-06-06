@@ -16,8 +16,8 @@ public class LogFilter {
         try (BufferedReader input = new BufferedReader(new FileReader("data/log.txt"))) {
             input.lines().filter(line -> {
                     String[] delimiter = line.split(" ");
-                    return delimiter[delimiter.length - 2].equals("404")
-                            && !delimiter[delimiter.length - 1].equals("-");
+                    return "404".equals(delimiter[delimiter.length - 2])
+                            && !"-".equals(delimiter[delimiter.length - 1]);
                     }).forEach(list::add);
         } catch (IOException e) {
             e.printStackTrace();
