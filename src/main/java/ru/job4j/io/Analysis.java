@@ -19,11 +19,11 @@ public class Analysis {
                 String status = delimiter[0];
                 String time = delimiter[1];
 
-                if ((status.equals("400") || status.equals("500")) && !isDown) {
+                if (("400".equals(status) || "500".equals(status)) && !isDown) {
                     timeDown = time;
                     isDown = true;
                 }
-                if ((status.equals("200") || status.equals("300")) && isDown) {
+                if (("200".equals(status) || "300".equals(status)) && isDown) {
                     writer.println(timeDown + ";" + time + ';');
                     isDown = false;
                 }
