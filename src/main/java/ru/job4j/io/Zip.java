@@ -34,14 +34,13 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    private static ArgsName validateArgs(String[] args) {
+
         if (args.length != 3) {
             throw new IllegalArgumentException("Usage: -d=<directory> -e=<exclude_extension> -o=<output_zip>");
         }
         ArgsName argsName = ArgsName.of(args);
         String directory = argsName.get("d");
-        String exclude = argsName.get("e");
-        String output = argsName.get("o");
 
         Path start = Paths.get(directory);
         if (!start.toFile().exists()) {
@@ -50,6 +49,16 @@ public class Zip {
         if (!start.toFile().isDirectory()) {
             throw new IllegalArgumentException(String.format("Это не директория: %s", directory));
         }
+        return argsName;
+    }
+
+    public static void main(String[] args) throws IOException {
+        ArgsName argsName = validateArgs(args);
+
+        String directory = argsName.get("d");
+        String exclude = argsName.get("e");
+        String output = argsName.get("o");
+        Path start = Paths.get(directory);
 
         List<Path> filesToArchive = Search.search(
                 start,
