@@ -63,7 +63,6 @@ public class CSVReader {
                 .collect(Collectors.joining(System.lineSeparator()))
                 .concat(System.lineSeparator());
 
-        // Вывод
         if ("stdout".equals(out)) {
             System.out.print(result);
         } else {
