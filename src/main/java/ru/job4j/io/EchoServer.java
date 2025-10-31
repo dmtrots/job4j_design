@@ -21,12 +21,16 @@ public class EchoServer {
                         if (query.contains("/?msg=")) {
                             String value = query.substring(query.indexOf("/?msg=") + 6);
 
-                            if ("Bye".equals(value)) {
+                            if ("Hello".equals(value)) {
+                                output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                                output.write("Hello, dear friend.".getBytes());
+                            } else if ("Exit".equals(value)) {
                                 output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                                 server.close();
                                 break;
                             } else {
                                 output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                                output.write((value + "\r\n").getBytes());
                             }
                         }
                     }
