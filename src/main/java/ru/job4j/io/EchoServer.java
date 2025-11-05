@@ -1,15 +1,12 @@
 package ru.job4j.io;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EchoServer {
-    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
-
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
@@ -17,39 +14,43 @@ public class EchoServer {
                 try (OutputStream output = socket.getOutputStream();
                      BufferedReader input = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
+                    output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String firstLine = input.readLine();
                     System.out.println(firstLine);
 
                     String[] parts = firstLine.split(" ");
                     if (parts.length > 1) {
                         String query = parts[1];
-                        if (query.contains("/?msg=")) {
-                            String value = query.substring(query.indexOf("/?msg=") + 6);
+                        if (query.contains("?")) {
+                            String value = query.substring(query.indexOf("/?") + 2);
+                            Map<String, String> params = parseParams(value);
 
-                            if ("Hello".equals(value)) {
-                                output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                                output.write("Hello, dear friend.".getBytes());
-                            } else if ("Exit".equals(value)) {
-                                output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            String msg = params.get("msg");
+                            if ("Bye".equals(msg)) {
                                 server.close();
                                 break;
-                            } else {
-                                output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                                output.write((value + "\r\n").getBytes());
                             }
                         }
                     }
 
-                    for (String string = input.readLine();
-                         string != null && !string.isEmpty();
-                         string = input.readLine()) {
+                    for (String string = input.readLine(); string != null && !string.isEmpty(); string = input.readLine()) {
                         System.out.println(string);
                     }
                     output.flush();
                 }
             }
-        } catch (Exception e) {
-            LOG.error("Exception ", e);
         }
+    }
+
+    private static Map<String, String> parseParams(String paramsPart) {
+        Map<String, String> params = new HashMap<>();
+        String[] pairs = paramsPart.split("&");
+        for (String pair : pairs) {
+            String[] keyValue = pair.split("=", 2);
+            if (keyValue.length == 2) {
+                params.put(keyValue[0], keyValue[1]);
+            }
+        }
+        return params;
     }
 }
