@@ -7,6 +7,26 @@ public class Device {
     private final Specification specification;
     private final int[] supportedFrequencies;
 
+    public boolean isOn() {
+        return isOn;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Specification getSpecification() {
+        return specification;
+    }
+
+    public int[] getSupportedFrequencies() {
+        return supportedFrequencies;
+    }
+
     public Device(boolean isOn, double price, String model, Specification specification, int[] supportedFrequencies) {
         this.isOn = isOn;
         this.price = price;
@@ -30,6 +50,18 @@ public class Device {
         private final String processor;
         private final int ram;
         private final int storage;
+
+        public String getProcessor() {
+            return processor;
+        }
+
+        public int getRam() {
+            return ram;
+        }
+
+        public int getStorage() {
+            return storage;
+        }
 
         public Specification(String processor, int ram, int storage) {
             this.processor = processor;
