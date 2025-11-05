@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<device isOn="true" price="999.99" model="Galaxy Ultra">
+    <specification processor="Snapdragon 888" ram="8" storage="256"/>
+    <supportedFrequencies>
+        <supportedFrequency>800</supportedFrequency>
+        <supportedFrequency>1800</supportedFrequency>
+        <supportedFrequency>2600</supportedFrequency>
+    </supportedFrequencies>
+</device>
