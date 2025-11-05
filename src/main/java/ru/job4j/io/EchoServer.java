@@ -26,9 +26,13 @@ public class EchoServer {
                             Map<String, String> params = parseParams(value);
 
                             String msg = params.get("msg");
-                            if ("Bye".equals(msg)) {
+                            if ("Hello".equals(msg)) {
+                                output.write("Hello, dear friend.".getBytes());
+                            } else if ("Exit".equals(msg)) {
                                 server.close();
                                 break;
+                            } else {
+                                output.write((msg + "\r\n").getBytes());
                             }
                         }
                     }
