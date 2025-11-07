@@ -34,9 +34,9 @@ insert into items (title, description, user_id, category_id, state_id) values
 ('Cannot login', 'Пользователь не может войти в систему', 2, 1, 1),
 ('Salary issue', 'Задержка зарплаты', 3, 3, 1);
 
-insert into comments (item_id, user_id, comment) values
-(1,1,'Проверяем проблему с логином'),
-(2,3,'Свяжемся с бухгалтерией');
+insert into comments (item_id, comment) values
+(1, 'Проверяем проблему с логином'),
+(2, 'Свяжемся с бухгалтерией');
 
 insert into attachs (item_id, file_name, file_path) values
 (1,'screenshot.png','/files/screenshot.png'),
