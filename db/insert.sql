@@ -10,14 +10,14 @@ insert into rules (name, description) values
 ('CommentItem', 'Добавление комментария');
 
 insert into role_rules (role_id, rule_id) values
-(10,13),(10,14),(10,15),(10,16),
-(11,13),(11,14),
-(12,13),(12,14),(12,15);
+(1,1),(1,2),(1,3),(1,4),
+(2,1),(2,2),
+(3,1),(3,2),(3,3);
 
 insert into users (username, password, email, role_id) values
-('alice', 'password1', 'alice@example.com', 10),
-('bob', 'password2', 'bob@example.com', 11),
-('carol', 'password3', 'carol@example.com', 12);
+('alice', 'password1', 'alice@example.com', 1),
+('bob', 'password2', 'bob@example.com', 2),
+('carol', 'password3', 'carol@example.com', 3);
 
 insert into states (name) values
 ('New'),
